@@ -1,0 +1,170 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /song:
+    get:
+      operationId: song.read_all
+      tags:
+        - Song
+      summary: Read the entire set of song, sorted by id
+      description: Read the entire set of song, sorted by id
+      responses:
+        200:
+          description: Successfully read song set operation
+          schema:
+            type: array
+            items:
+              properties:
+                song_id:
+                  type: integer
+                  description: Id of the person
+                name:
+                  type: string
+                  description: name of the song
+                duration:
+                  type: integer
+                  description: duration of the song
+                timestamp:
+                  type: string
+                  description: Creation/Update timestamp of the song
+
+    post:
+      operationId: song.create
+      tags:
+        - Song
+      summary: Create a song
+      description: Create a new song
+      parameters:
+        - name: song
+          in: body
+          description: song to create
+          required: True
+          schema:
+            type: object
+            properties:
+              song_id:
+                type: integer
+                description: Id of the song to create
+              name:
+                type: string
+                description: name of the song to create
+	      duration:
+		type: integer
+		description: duration of the song
+      responses:
+        201:
+          description: Successfully created song
+          schema:
+            properties:
+              song_id:
+                type: integer
+                description: Id of the song
+              name:
+                type: string
+                description: name of the song
+              duration:
+                type: integer
+                description: duration of the song
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the song record
+
+  /song/{song_id}:
+    get:
+      operationId: song.read_one
+      tags:
+        - Song
+      summary: Read one Song
+      description: Read one Song
+      parameters:
+        - song: song_id
+          in: path
+          description: Id of the song to get
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read song from song data operation
+          schema:
+            type: object
+            properties:
+              song_id:
+                type: integer
+                description: Id of the song
+              name:
+                type: string
+                description: name of the person
+              duration:
+                type: integer
+                description: duration of the song
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the song record
+
+    put:
+      operationId: song.update
+      tags:
+        - Song
+      summary: Update a song
+      description: Update a song
+      parameters:
+        - id: song_id
+          in: path
+          description: Id of the song to update
+          type: integer
+          required: True
+        - name: song
+          in: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: name of the person
+              duration:
+                type: integer
+                description: duration of the song
+      responses:
+        200:
+          description: Successfully updated song
+          schema:
+            properties:
+              song_id:
+                type: integer
+                description: Id of the song in the database
+              name:
+                type: string
+                description: name of the person
+              duration:
+                type: integer
+                description: duration of the song
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the song record
+
+    delete:
+      operationId: song.delete
+      tags:
+        - Song
+      summary: Delete a song from the list
+      description: Delete a song
+      parameters:
+        - name: song_id
+          in: path
+          type: integer
+          description: Id of the song to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a person
