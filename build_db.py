@@ -25,7 +25,7 @@ db.create_all()
 
 # iterate over the PEOPLE structure and populate the database
 for name in song:
-    p = Song(name.get("id"), fname=name.get("fname"))
+    p = Song(song_id=name.get("id"),name=name.get("name"))
     db.session.add(p)
 
 db.session.commit()
