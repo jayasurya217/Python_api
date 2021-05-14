@@ -7,7 +7,7 @@
 
 from datetime import datetime
 from config import db, ma
-
+from marshmallow_sqlalchemy import ModelSchema
 
 class Song(db.Model):
     __tablename__ = "song"
@@ -19,7 +19,7 @@ class Song(db.Model):
     )
 
 
-class PersonSchema(ma.ModelSchema):
+class SongSchema(ModelSchema):
     class Meta:
         model = Song
         sqla_session = db.session
